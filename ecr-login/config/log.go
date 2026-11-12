@@ -18,7 +18,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/mitchellh/go-homedir"
 	"github.com/sirupsen/logrus"
 )
 
@@ -30,7 +29,7 @@ func logrusConfig() {
 	// Add URL redactor hook to sanitize sensitive URL information in logs
 	logrus.AddHook(&URLRedactorHook{})
 
-	logdir, err := homedir.Expand(GetCacheDir() + "/log")
+	logdir, err := ExpandHome(GetCacheDir() + "/log")
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "log: failed to find directory: %v", err)
 		logdir = os.TempDir()

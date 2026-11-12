@@ -13,11 +13,30 @@
 
 package config
 
-import "os"
+import (
+	"errors"
+	"os"
+	"path/filepath"
+)
 
 func GetCacheDir() string {
 	if cacheDir := os.Getenv("AWS_ECR_CACHE_DIR"); cacheDir != "" {
 		return cacheDir
 	}
 	return "~/.ecr"
+}
+
+// ExpandHome replaces a leading "~" in path with the current user's home directory.
+func ExpandHome(path string) (string, error) {
+	if path == "" || path[0] != '~' {
+		return path, nil
+	}
+	if len(path) > 1 && path[1] != '/' && path[1] != '\\' {
+		return "", errors.New("cannot expand user-specific home dir")
+	}
+	home, err := os.UserHomeDir()
+	if err != nil {
+		return "", err
+	}
+	return filepath.Join(home, path[1:]), nil
 }

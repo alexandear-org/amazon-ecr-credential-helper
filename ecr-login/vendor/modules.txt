@@ -124,9 +124,6 @@ github.com/davecgh/go-spew/spew
 # github.com/docker/docker-credential-helpers v0.9.6
 ## explicit; go 1.21
 github.com/docker/docker-credential-helpers/credentials
-# github.com/mitchellh/go-homedir v1.1.0
-## explicit
-github.com/mitchellh/go-homedir
 # github.com/pmezard/go-difflib v1.0.0
 ## explicit
 github.com/pmezard/go-difflib/difflib

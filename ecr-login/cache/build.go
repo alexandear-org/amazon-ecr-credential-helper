@@ -23,7 +23,6 @@ import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
-	"github.com/mitchellh/go-homedir"
 	"github.com/sirupsen/logrus"
 
 	ecrconfig "github.com/awslabs/amazon-ecr-credential-helper/ecr-login/config"
@@ -40,7 +39,7 @@ func BuildCredentialsCache(ctx context.Context, config aws.Config, cacheDir stri
 		cacheDir = ecrconfig.GetCacheDir()
 	}
 
-	cacheDir, err := homedir.Expand(cacheDir)
+	cacheDir, err := ecrconfig.ExpandHome(cacheDir)
 	if err != nil {
 		logrus.WithError(err).Debug("Could not expand cache path, disabling cache")
 		return NewNullCredentialsCache()
